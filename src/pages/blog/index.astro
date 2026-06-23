@@ -1,0 +1,269 @@
+---
+const title = 'StudyKit Blog — Citation Guides & Study Tips';
+const description =
+	'Free citation guides, APA formatting tips, and study resources for students. Learn how to cite sources correctly.';
+
+const posts = [
+	{
+		slug: '/blog/how-to-cite-website-apa/',
+		title: 'How to Cite a Website in APA Format (2025 Guide)',
+		excerpt:
+			'Learn how to cite any website in APA 7th edition format, with step-by-step instructions and real examples.',
+	},
+	{
+		slug: '/blog/apa-vs-mla-citation/',
+		title: 'APA vs MLA Citation: Which One Should You Use?',
+		excerpt:
+			'Not sure whether to use APA or MLA? We compare both styles side by side with clear examples for students.',
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="page">
+			<header class="header">
+				<a href="/" class="brand">
+					<span class="brand-icon" aria-hidden="true">📚</span>
+					<span class="brand-name">StudyKit</span>
+				</a>
+				<h1>StudyKit Blog</h1>
+				<p class="subtitle">Citation guides and study tips to help you write better papers.</p>
+			</header>
+
+			<main class="main">
+				<ul class="post-list">
+					{
+						posts.map((post) => (
+							<li>
+								<article class="card post-card">
+									<h2 class="post-title">
+										<a href={post.slug}>{post.title}</a>
+									</h2>
+									<p class="post-excerpt">{post.excerpt}</p>
+									<a href={post.slug} class="read-more">
+										Read article
+										<span aria-hidden="true">→</span>
+									</a>
+								</article>
+							</li>
+						))
+					}
+				</ul>
+
+				<p class="back-link-wrap">
+					<a href="/" class="back-link">← Back to APA Citation Generator</a>
+				</p>
+			</main>
+
+			<footer class="footer">
+				<p>&copy; {new Date().getFullYear()} StudyKit — Free tools for students.</p>
+			</footer>
+		</div>
+	</body>
+</html>
+
+<style>
+	:root {
+		--color-bg: #f4f6fb;
+		--color-surface: #ffffff;
+		--color-primary: #4f46e5;
+		--color-primary-hover: #4338ca;
+		--color-primary-light: #eef2ff;
+		--color-text: #1e293b;
+		--color-text-muted: #64748b;
+		--color-border: #e2e8f0;
+		--radius: 12px;
+		--radius-sm: 8px;
+		--shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.06);
+		--font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		margin: 0;
+		font-family: var(--font);
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--color-text);
+		background: var(--color-bg);
+		min-height: 100vh;
+	}
+
+	.page {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1.5rem 1rem 3rem;
+	}
+
+	.header {
+		text-align: center;
+		margin-bottom: 2rem;
+		padding-top: 0.5rem;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 1rem;
+		font-weight: 700;
+		font-size: 0.95rem;
+		color: var(--color-primary);
+		letter-spacing: 0.02em;
+		text-decoration: none;
+	}
+
+	.brand:hover {
+		color: var(--color-primary-hover);
+	}
+
+	.brand-icon {
+		font-size: 1.25rem;
+	}
+
+	.header h1 {
+		margin: 0 0 0.75rem;
+		font-size: clamp(1.75rem, 5vw, 2.25rem);
+		font-weight: 800;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+	}
+
+	.subtitle {
+		margin: 0 auto;
+		max-width: 540px;
+		color: var(--color-text-muted);
+		font-size: 1.05rem;
+	}
+
+	.main {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.post-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		box-shadow: var(--shadow);
+		padding: 1.5rem;
+		transition:
+			border-color 0.15s,
+			box-shadow 0.15s;
+	}
+
+	.post-card:hover {
+		border-color: #c7d2fe;
+		box-shadow: 0 4px 20px rgba(79, 70, 229, 0.1);
+	}
+
+	.post-title {
+		margin: 0 0 0.65rem;
+		font-size: 1.2rem;
+		font-weight: 800;
+		line-height: 1.35;
+		letter-spacing: -0.01em;
+	}
+
+	.post-title a {
+		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.post-title a:hover {
+		color: var(--color-primary);
+	}
+
+	.post-excerpt {
+		margin: 0 0 1rem;
+		color: var(--color-text-muted);
+		font-size: 0.98rem;
+		line-height: 1.65;
+	}
+
+	.read-more {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+
+	.read-more:hover {
+		color: var(--color-primary-hover);
+	}
+
+	.back-link-wrap {
+		margin: 0.5rem 0 0;
+		text-align: center;
+	}
+
+	.back-link {
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		text-decoration: none;
+	}
+
+	.back-link:hover {
+		color: var(--color-primary);
+	}
+
+	.footer {
+		margin-top: 2.5rem;
+		text-align: center;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+	}
+
+	.footer p {
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		.page {
+			padding: 1rem 0.85rem 2.5rem;
+		}
+
+		.card {
+			padding: 1.15rem;
+		}
+
+		.post-title {
+			font-size: 1.1rem;
+		}
+	}
+</style>
