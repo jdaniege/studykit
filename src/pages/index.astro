@@ -1,11 +1,908 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = 'Free APA Citation Generator — StudyKit';
+const description =
+	'Create accurate APA 7th edition citations for websites, books, and journal articles in seconds. Free, fast, and no sign-up required.';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="page">
+			<header class="header">
+				<div class="brand">
+					<span class="brand-icon" aria-hidden="true">📚</span>
+					<span class="brand-name">StudyKit</span>
+				</div>
+				<h1>APA Citation Generator</h1>
+				<p class="subtitle">
+					Generate accurate APA 7th edition citations for websites, books, and journal articles — free and instant.
+				</p>
+			</header>
+
+			<main class="main">
+				<section class="card" aria-labelledby="source-type-heading">
+					<h2 id="source-type-heading" class="visually-hidden">Source type</h2>
+					<div class="source-tabs" role="tablist" aria-label="Citation source type">
+						<button
+							type="button"
+							class="source-tab active"
+							role="tab"
+							aria-selected="true"
+							aria-controls="panel-website"
+							id="tab-website"
+							data-source="website"
+						>
+							Website
+						</button>
+						<button
+							type="button"
+							class="source-tab"
+							role="tab"
+							aria-selected="false"
+							aria-controls="panel-book"
+							id="tab-book"
+							data-source="book"
+						>
+							Book
+						</button>
+						<button
+							type="button"
+							class="source-tab"
+							role="tab"
+							aria-selected="false"
+							aria-controls="panel-journal"
+							id="tab-journal"
+							data-source="journal"
+						>
+							Journal Article
+						</button>
+					</div>
+
+					<form id="citation-form" class="citation-form" novalidate>
+						<!-- Website fields -->
+						<div id="panel-website" class="field-panel active" role="tabpanel" aria-labelledby="tab-website">
+							<div class="field">
+								<label for="web-author">Author(s)</label>
+								<input
+									type="text"
+									id="web-author"
+									name="web-author"
+									placeholder="e.g. Smith, J. A. & Jones, B. C."
+									autocomplete="off"
+								/>
+								<span class="hint">Last name first. Separate multiple authors with &amp;</span>
+							</div>
+							<div class="field">
+								<label for="web-title">Page title <span class="required">*</span></label>
+								<input
+									type="text"
+									id="web-title"
+									name="web-title"
+									placeholder="e.g. How to write in APA format"
+									required
+									autocomplete="off"
+								/>
+							</div>
+							<div class="field-row">
+								<div class="field">
+									<label for="web-year">Year <span class="required">*</span></label>
+									<input
+										type="text"
+										id="web-year"
+										name="web-year"
+										placeholder="2024"
+										inputmode="numeric"
+										maxlength="4"
+										required
+										autocomplete="off"
+									/>
+								</div>
+								<div class="field">
+									<label for="web-date">Full date (optional)</label>
+									<input
+										type="text"
+										id="web-date"
+										name="web-date"
+										placeholder="e.g. March 15"
+										autocomplete="off"
+									/>
+									<span class="hint">Month and day, if available</span>
+								</div>
+							</div>
+							<div class="field">
+								<label for="web-site">Website name <span class="required">*</span></label>
+								<input
+									type="text"
+									id="web-site"
+									name="web-site"
+									placeholder="e.g. Purdue OWL"
+									required
+									autocomplete="off"
+								/>
+							</div>
+							<div class="field">
+								<label for="web-url">URL <span class="required">*</span></label>
+								<input
+									type="url"
+									id="web-url"
+									name="web-url"
+									placeholder="https://example.com/page"
+									required
+									autocomplete="off"
+								/>
+							</div>
+						</div>
+
+						<!-- Book fields -->
+						<div id="panel-book" class="field-panel" role="tabpanel" aria-labelledby="tab-book" hidden>
+							<div class="field">
+								<label for="book-author">Author(s) <span class="required">*</span></label>
+								<input
+									type="text"
+									id="book-author"
+									name="book-author"
+									placeholder="e.g. American Psychological Association"
+									required
+									autocomplete="off"
+								/>
+								<span class="hint">Last name first. Separate multiple authors with &amp;</span>
+							</div>
+							<div class="field">
+								<label for="book-title">Book title <span class="required">*</span></label>
+								<input
+									type="text"
+									id="book-title"
+									name="book-title"
+									placeholder="e.g. Publication manual of the American Psychological Association"
+									required
+									autocomplete="off"
+								/>
+							</div>
+							<div class="field-row">
+								<div class="field">
+									<label for="book-year">Year <span class="required">*</span></label>
+									<input
+										type="text"
+										id="book-year"
+										name="book-year"
+										placeholder="2020"
+										inputmode="numeric"
+										maxlength="4"
+										required
+										autocomplete="off"
+									/>
+								</div>
+								<div class="field">
+									<label for="book-edition">Edition (optional)</label>
+									<input
+										type="text"
+										id="book-edition"
+										name="book-edition"
+										placeholder="e.g. 7th"
+										autocomplete="off"
+									/>
+								</div>
+							</div>
+							<div class="field">
+								<label for="book-publisher">Publisher <span class="required">*</span></label>
+								<input
+									type="text"
+									id="book-publisher"
+									name="book-publisher"
+									placeholder="e.g. American Psychological Association"
+									required
+									autocomplete="off"
+								/>
+							</div>
+							<div class="field">
+								<label for="book-doi">DOI or URL (optional)</label>
+								<input
+									type="text"
+									id="book-doi"
+									name="book-doi"
+									placeholder="https://doi.org/10.xxxx/xxxxx"
+									autocomplete="off"
+								/>
+							</div>
+						</div>
+
+						<!-- Journal fields -->
+						<div id="panel-journal" class="field-panel" role="tabpanel" aria-labelledby="tab-journal" hidden>
+							<div class="field">
+								<label for="journal-author">Author(s) <span class="required">*</span></label>
+								<input
+									type="text"
+									id="journal-author"
+									name="journal-author"
+									placeholder="e.g. Smith, J. A. & Jones, B. C."
+									required
+									autocomplete="off"
+								/>
+								<span class="hint">Last name first. Separate multiple authors with &amp;</span>
+							</div>
+							<div class="field">
+								<label for="journal-title">Article title <span class="required">*</span></label>
+								<input
+									type="text"
+									id="journal-title"
+									name="journal-title"
+									placeholder="e.g. The effects of sleep on memory consolidation"
+									required
+									autocomplete="off"
+								/>
+							</div>
+							<div class="field-row">
+								<div class="field">
+									<label for="journal-year">Year <span class="required">*</span></label>
+									<input
+										type="text"
+										id="journal-year"
+										name="journal-year"
+										placeholder="2023"
+										inputmode="numeric"
+										maxlength="4"
+										required
+										autocomplete="off"
+									/>
+								</div>
+								<div class="field">
+									<label for="journal-volume">Volume <span class="required">*</span></label>
+									<input
+										type="text"
+										id="journal-volume"
+										name="journal-volume"
+										placeholder="e.g. 42"
+										required
+										autocomplete="off"
+									/>
+								</div>
+								<div class="field">
+									<label for="journal-issue">Issue (optional)</label>
+									<input
+										type="text"
+										id="journal-issue"
+										name="journal-issue"
+										placeholder="e.g. 3"
+										autocomplete="off"
+									/>
+								</div>
+							</div>
+							<div class="field">
+								<label for="journal-name">Journal name <span class="required">*</span></label>
+								<input
+									type="text"
+									id="journal-name"
+									name="journal-name"
+									placeholder="e.g. Journal of Experimental Psychology"
+									required
+									autocomplete="off"
+								/>
+							</div>
+							<div class="field-row">
+								<div class="field">
+									<label for="journal-pages">Page range <span class="required">*</span></label>
+									<input
+										type="text"
+										id="journal-pages"
+										name="journal-pages"
+										placeholder="e.g. 123-145"
+										required
+										autocomplete="off"
+									/>
+								</div>
+								<div class="field">
+									<label for="journal-doi">DOI or URL (optional)</label>
+									<input
+										type="text"
+										id="journal-doi"
+										name="journal-doi"
+										placeholder="https://doi.org/10.xxxx/xxxxx"
+										autocomplete="off"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div class="actions">
+							<button type="submit" class="btn btn-primary">Generate Citation</button>
+							<button type="reset" class="btn btn-secondary">Clear Form</button>
+						</div>
+					</form>
+				</section>
+
+				<section class="card result-card" id="result-section" aria-labelledby="result-heading" hidden>
+					<h2 id="result-heading">Your Citation</h2>
+					<div class="result-box" id="result-box" tabindex="0" aria-live="polite"></div>
+					<div class="result-actions">
+						<button type="button" class="btn btn-primary" id="copy-btn">Copy to Clipboard</button>
+						<span class="copy-feedback" id="copy-feedback" aria-live="polite"></span>
+					</div>
+					<p class="result-note">
+						Formatted according to APA 7th edition. Always double-check against your style guide or instructor requirements.
+					</p>
+				</section>
+			</main>
+
+			<footer class="footer">
+				<p>&copy; {new Date().getFullYear()} StudyKit — Free tools for students.</p>
+			</footer>
+		</div>
+
+		<script is:inline>
+			(function () {
+				var currentSource = 'website';
+				var plainCitation = '';
+
+				var tabs = document.querySelectorAll('.source-tab');
+				var panels = document.querySelectorAll('.field-panel');
+				var form = document.getElementById('citation-form');
+				var resultSection = document.getElementById('result-section');
+				var resultBox = document.getElementById('result-box');
+				var copyBtn = document.getElementById('copy-btn');
+				var copyFeedback = document.getElementById('copy-feedback');
+
+				function trim(val) {
+					return (val || '').trim();
+				}
+
+				function getValue(id) {
+					var el = document.getElementById(id);
+					return el ? trim(el.value) : '';
+				}
+
+				function italic(text) {
+					return '<em>' + escapeHtml(text) + '</em>';
+				}
+
+				function escapeHtml(text) {
+					return text
+						.replace(/&/g, '&amp;')
+						.replace(/</g, '&lt;')
+						.replace(/>/g, '&gt;')
+						.replace(/"/g, '&quot;');
+				}
+
+				function formatAuthor(author) {
+					if (!author) return '';
+					return author.endsWith('.') ? author : author + '.';
+				}
+
+				function formatYearDate(year, fullDate) {
+					if (!year) return '';
+					if (fullDate) {
+						return '(' + year + ', ' + fullDate + ')';
+					}
+					return '(' + year + ')';
+				}
+
+				function formatDoiOrUrl(value) {
+					if (!value) return '';
+					var url = value;
+					if (!/^https?:\/\//i.test(url) && /^10\./.test(url)) {
+						url = 'https://doi.org/' + url;
+					}
+					return url;
+				}
+
+				function buildWebsiteCitation() {
+					var author = getValue('web-author');
+					var title = getValue('web-title');
+					var year = getValue('web-year');
+					var fullDate = getValue('web-date');
+					var site = getValue('web-site');
+					var url = getValue('web-url');
+
+					if (!title || !year || !site || !url) return null;
+
+					var parts = [];
+					var yearPart = formatYearDate(year, fullDate);
+
+					if (author) {
+						parts.push(formatAuthor(author) + ' ' + yearPart + '. ' + escapeHtml(title) + '. ' + italic(site) + '. ' + escapeHtml(url));
+					} else {
+						parts.push(escapeHtml(title) + '. ' + yearPart + '. ' + italic(site) + '. ' + escapeHtml(url));
+					}
+
+					return parts.join('');
+				}
+
+				function buildBookCitation() {
+					var author = getValue('book-author');
+					var title = getValue('book-title');
+					var year = getValue('book-year');
+					var edition = getValue('book-edition');
+					var publisher = getValue('book-publisher');
+					var doi = getValue('book-doi');
+
+					if (!author || !title || !year || !publisher) return null;
+
+					var citation = formatAuthor(author) + ' (' + year + '). ' + italic(title);
+					if (edition) {
+						citation += ' (' + escapeHtml(edition) + ' ed.)';
+					}
+					citation += '. ' + escapeHtml(publisher) + '.';
+					if (doi) {
+						citation += ' ' + escapeHtml(formatDoiOrUrl(doi));
+					}
+
+					return citation;
+				}
+
+				function buildJournalCitation() {
+					var author = getValue('journal-author');
+					var title = getValue('journal-title');
+					var year = getValue('journal-year');
+					var volume = getValue('journal-volume');
+					var issue = getValue('journal-issue');
+					var journal = getValue('journal-name');
+					var pages = getValue('journal-pages');
+					var doi = getValue('journal-doi');
+
+					if (!author || !title || !year || !volume || !journal || !pages) return null;
+
+					var volIssue = italic(journal) + ', ' + italic(volume);
+					if (issue) {
+						volIssue += '(' + escapeHtml(issue) + ')';
+					}
+					volIssue += ', ' + escapeHtml(pages);
+
+					var citation = formatAuthor(author) + ' (' + year + '). ' + escapeHtml(title) + '. ' + volIssue + '.';
+					if (doi) {
+						citation += ' ' + escapeHtml(formatDoiOrUrl(doi));
+					}
+
+					return citation;
+				}
+
+				function htmlToPlain(html) {
+					var temp = document.createElement('div');
+					temp.innerHTML = html;
+					return temp.textContent || temp.innerText || '';
+				}
+
+				function switchSource(source) {
+					currentSource = source;
+
+					tabs.forEach(function (tab) {
+						var isActive = tab.dataset.source === source;
+						tab.classList.toggle('active', isActive);
+						tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+					});
+
+					panels.forEach(function (panel) {
+						var isActive = panel.id === 'panel-' + source;
+						panel.classList.toggle('active', isActive);
+						panel.hidden = !isActive;
+
+						panel.querySelectorAll('[required]').forEach(function (input) {
+							input.required = isActive;
+						});
+					});
+				}
+
+				tabs.forEach(function (tab) {
+					tab.addEventListener('click', function () {
+						switchSource(tab.dataset.source);
+					});
+				});
+
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
+
+					var html = null;
+					if (currentSource === 'website') html = buildWebsiteCitation();
+					else if (currentSource === 'book') html = buildBookCitation();
+					else if (currentSource === 'journal') html = buildJournalCitation();
+
+					if (!html) {
+						resultBox.innerHTML = '<span class="error">Please fill in all required fields.</span>';
+						resultSection.hidden = false;
+						plainCitation = '';
+						return;
+					}
+
+					resultBox.innerHTML = html;
+					plainCitation = htmlToPlain(html);
+					resultSection.hidden = false;
+					copyFeedback.textContent = '';
+					resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+				});
+
+				form.addEventListener('reset', function () {
+					resultSection.hidden = true;
+					resultBox.innerHTML = '';
+					plainCitation = '';
+					copyFeedback.textContent = '';
+				});
+
+				copyBtn.addEventListener('click', function () {
+					if (!plainCitation) return;
+
+					function showSuccess() {
+						copyFeedback.textContent = 'Copied!';
+						setTimeout(function () {
+							copyFeedback.textContent = '';
+						}, 2500);
+					}
+
+					if (navigator.clipboard && navigator.clipboard.writeText) {
+						navigator.clipboard.writeText(plainCitation).then(showSuccess).catch(fallbackCopy);
+					} else {
+						fallbackCopy();
+					}
+
+					function fallbackCopy() {
+						var textarea = document.createElement('textarea');
+						textarea.value = plainCitation;
+						textarea.setAttribute('readonly', '');
+						textarea.style.position = 'absolute';
+						textarea.style.left = '-9999px';
+						document.body.appendChild(textarea);
+						textarea.select();
+						try {
+							document.execCommand('copy');
+							showSuccess();
+						} catch (err) {
+							copyFeedback.textContent = 'Copy failed — select and copy manually.';
+						}
+						document.body.removeChild(textarea);
+					}
+				});
+
+				switchSource('website');
+			})();
+		</script>
+	</body>
+</html>
+
+<style>
+	:root {
+		--color-bg: #f4f6fb;
+		--color-surface: #ffffff;
+		--color-primary: #4f46e5;
+		--color-primary-hover: #4338ca;
+		--color-primary-light: #eef2ff;
+		--color-text: #1e293b;
+		--color-text-muted: #64748b;
+		--color-border: #e2e8f0;
+		--color-error: #dc2626;
+		--radius: 12px;
+		--radius-sm: 8px;
+		--shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 16px rgba(15, 23, 42, 0.06);
+		--font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		margin: 0;
+		font-family: var(--font);
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--color-text);
+		background: var(--color-bg);
+		min-height: 100vh;
+	}
+
+	.page {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 1.5rem 1rem 3rem;
+	}
+
+	.header {
+		text-align: center;
+		margin-bottom: 2rem;
+		padding-top: 0.5rem;
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 1rem;
+		font-weight: 700;
+		font-size: 0.95rem;
+		color: var(--color-primary);
+		letter-spacing: 0.02em;
+	}
+
+	.brand-icon {
+		font-size: 1.25rem;
+	}
+
+	.header h1 {
+		margin: 0 0 0.75rem;
+		font-size: clamp(1.75rem, 5vw, 2.25rem);
+		font-weight: 800;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+	}
+
+	.subtitle {
+		margin: 0 auto;
+		max-width: 540px;
+		color: var(--color-text-muted);
+		font-size: 1.05rem;
+	}
+
+	.main {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.card {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		box-shadow: var(--shadow);
+		padding: 1.5rem;
+	}
+
+	.source-tabs {
+		display: flex;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.source-tab {
+		flex: 1;
+		min-width: 0;
+		padding: 0.65rem 0.75rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		background: var(--color-bg);
+		color: var(--color-text-muted);
+		font-family: inherit;
+		font-size: 0.9rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition:
+			background 0.15s,
+			color 0.15s,
+			border-color 0.15s,
+			box-shadow 0.15s;
+	}
+
+	.source-tab:hover {
+		border-color: var(--color-primary);
+		color: var(--color-primary);
+	}
+
+	.source-tab.active {
+		background: var(--color-primary);
+		border-color: var(--color-primary);
+		color: #fff;
+		box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+	}
+
+	.field-panel {
+		display: none;
+	}
+
+	.field-panel.active {
+		display: block;
+	}
+
+	.field {
+		margin-bottom: 1.1rem;
+	}
+
+	.field-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.field-row .field {
+		margin-bottom: 1.1rem;
+	}
+
+	#panel-journal .field-row:first-of-type {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 0.35rem;
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.required {
+		color: var(--color-error);
+	}
+
+	input[type='text'],
+	input[type='url'] {
+		width: 100%;
+		padding: 0.65rem 0.85rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		font-family: inherit;
+		font-size: 0.95rem;
+		color: var(--color-text);
+		background: #fff;
+		transition:
+			border-color 0.15s,
+			box-shadow 0.15s;
+	}
+
+	input:focus {
+		outline: none;
+		border-color: var(--color-primary);
+		box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+	}
+
+	.hint {
+		display: block;
+		margin-top: 0.3rem;
+		font-size: 0.78rem;
+		color: var(--color-text-muted);
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 0.5rem;
+		padding-top: 0.5rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.7rem 1.4rem;
+		border: none;
+		border-radius: var(--radius-sm);
+		font-family: inherit;
+		font-size: 0.95rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition:
+			background 0.15s,
+			transform 0.1s,
+			box-shadow 0.15s;
+	}
+
+	.btn:active {
+		transform: scale(0.98);
+	}
+
+	.btn-primary {
+		background: var(--color-primary);
+		color: #fff;
+		box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+	}
+
+	.btn-primary:hover {
+		background: var(--color-primary-hover);
+	}
+
+	.btn-secondary {
+		background: var(--color-bg);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
+	}
+
+	.btn-secondary:hover {
+		background: var(--color-border);
+	}
+
+	.result-card h2 {
+		margin: 0 0 1rem;
+		font-size: 1.15rem;
+		font-weight: 700;
+	}
+
+	.result-box {
+		padding: 1.15rem 1.25rem;
+		background: var(--color-primary-light);
+		border: 1px solid #c7d2fe;
+		border-radius: var(--radius-sm);
+		font-size: 1rem;
+		line-height: 1.7;
+		word-break: break-word;
+	}
+
+	.result-box em {
+		font-style: italic;
+	}
+
+	.result-box .error {
+		color: var(--color-error);
+	}
+
+	.result-actions {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.copy-feedback {
+		font-size: 0.875rem;
+		font-weight: 600;
+		color: #16a34a;
+	}
+
+	.result-note {
+		margin: 1rem 0 0;
+		font-size: 0.8rem;
+		color: var(--color-text-muted);
+	}
+
+	.footer {
+		margin-top: 2.5rem;
+		text-align: center;
+		font-size: 0.85rem;
+		color: var(--color-text-muted);
+	}
+
+	.footer p {
+		margin: 0;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (max-width: 600px) {
+		.page {
+			padding: 1rem 0.85rem 2.5rem;
+		}
+
+		.card {
+			padding: 1.15rem;
+		}
+
+		.field-row,
+		#panel-journal .field-row:first-of-type {
+			grid-template-columns: 1fr;
+		}
+
+		.source-tab {
+			flex: 1 1 calc(50% - 0.25rem);
+			font-size: 0.85rem;
+		}
+
+		.actions {
+			flex-direction: column;
+		}
+
+		.actions .btn {
+			width: 100%;
+		}
+	}
+</style>
