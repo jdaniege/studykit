@@ -334,6 +334,21 @@ const description =
 				</section>
 			</main>
 
+			<section class="guides-section" aria-labelledby="guides-heading">
+				<h2 id="guides-heading" class="guides-title">Citation Guides</h2>
+				<p class="guides-desc">Learn how to cite sources correctly with our free guides.</p>
+				<div class="guides-grid">
+					<a href="/blog/how-to-cite-website-apa/" class="card guide-card">
+						<span class="guide-card-title">How to Cite a Website in APA Format</span>
+						<span class="guide-card-arrow" aria-hidden="true">→</span>
+					</a>
+					<a href="/blog/apa-vs-mla-citation/" class="card guide-card">
+						<span class="guide-card-title">APA vs MLA Citation: Which One Should You Use?</span>
+						<span class="guide-card-arrow" aria-hidden="true">→</span>
+					</a>
+				</div>
+			</section>
+
 			<footer class="footer">
 				<p>&copy; {new Date().getFullYear()} StudyKit — Free tools for students.</p>
 			</footer>
@@ -856,6 +871,68 @@ const description =
 		color: var(--color-text-muted);
 	}
 
+	.guides-section {
+		margin-top: 2rem;
+	}
+
+	.guides-title {
+		margin: 0 0 0.5rem;
+		font-size: 1.35rem;
+		font-weight: 800;
+		text-align: center;
+		letter-spacing: -0.01em;
+	}
+
+	.guides-desc {
+		margin: 0 auto 1.25rem;
+		max-width: 480px;
+		text-align: center;
+		color: var(--color-text-muted);
+		font-size: 0.98rem;
+	}
+
+	.guides-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.guide-card {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 1.15rem 1.25rem;
+		text-decoration: none;
+		color: inherit;
+		transition:
+			border-color 0.15s,
+			box-shadow 0.15s;
+	}
+
+	.guide-card:hover {
+		border-color: #c7d2fe;
+		box-shadow: 0 4px 20px rgba(79, 70, 229, 0.1);
+	}
+
+	.guide-card-title {
+		font-size: 0.95rem;
+		font-weight: 700;
+		line-height: 1.45;
+		color: var(--color-text);
+	}
+
+	.guide-card:hover .guide-card-title {
+		color: var(--color-primary);
+	}
+
+	.guide-card-arrow {
+		flex-shrink: 0;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--color-primary);
+	}
+
 	.footer {
 		margin-top: 2.5rem;
 		text-align: center;
@@ -904,6 +981,10 @@ const description =
 
 		.actions .btn {
 			width: 100%;
+		}
+
+		.guides-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
